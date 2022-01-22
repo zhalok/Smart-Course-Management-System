@@ -10,7 +10,7 @@ import LeftDrawer from './LeftDrawer';
 import { useNavigate } from 'react-router';
 
 export default function Navbar({ title, currentUser, login_nav_info }) {
-	console.log(login_nav_info);
+	// console.log(login_nav_info);
 	const [showDrawer, setShowDrawer] = useState(false);
 	const navigate = useNavigate();
 
@@ -39,6 +39,7 @@ export default function Navbar({ title, currentUser, login_nav_info }) {
 					<div style={{ width: 'fit-content', marginLeft: 'auto' }}>
 						{login_nav_info.map((e, index) => (
 							<Button
+								key={index}
 								color='inherit'
 								startIcon={e.icon}
 								onClick={() => {

@@ -8,6 +8,8 @@ import { Button } from '@mui/material';
 
 export default function Login() {
 	const [hoverButtonColor, setHoverButtonColor] = useState('');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 	const theme = createTheme({
 		typography: {
 			fontFamily: 'Arial,Raleway,"Segoe UI"',
@@ -32,7 +34,7 @@ export default function Login() {
 			</BasicInfoContext.Consumer>
 
 			<Paper
-				elevation='5'
+				elevation={5}
 				style={{
 					width: window.innerWidth / 3,
 					marginLeft: 'auto',
@@ -54,6 +56,10 @@ export default function Login() {
 						label='Username'
 						variant='outlined'
 						style={{ width: '80%', marginTop: '30px' }}
+						value={username}
+						onChange={(e) => {
+							setUsername(e.target.value);
+						}}
 					/>
 					<TextField
 						label='Password'
@@ -62,7 +68,13 @@ export default function Login() {
 						style={{ width: '80%', marginTop: '30px' }}
 					/>
 				</div>
-				<Button variant='contained' style={{ marginTop: '50px', width: '80%' }}>
+				<Button
+					variant='contained'
+					style={{ marginTop: '50px', width: '80%' }}
+					onClick={() => {
+						console.log(username);
+					}}
+				>
 					Log in
 				</Button>
 				<Button

@@ -14,6 +14,7 @@
 	"author": "zhalok rahman",
 	"license": "ISC",
 	"dependencies": {
-		"dotenv": "^10.0.0"
+		"dotenv": "^10.0.0",
+		"uuidv4": "^6.2.12"
 	}
 }

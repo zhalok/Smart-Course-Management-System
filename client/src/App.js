@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import TeacherSignup from './pages/TeacherSIgnup';
 import StudentSignup from './pages/StudentSignup';
 import AdminLogin from './pages/AdminLogin';
-import { useState, React } from 'react';
+import { useState, React, useEffect } from 'react';
 import BasicInfoContext from './contexts/BasicInfoContext';
 import LoginIcon from '@mui/icons-material/Login';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
@@ -17,8 +17,8 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [currentUser, setCurrentUser] = useState('');
 	const login_nav_info_while_not_logged_in = [
-		{ title: 'login', icon: <LoginIcon /> },
-		{ title: 'signup', icon: <HowToRegIcon /> },
+		{ title: 'login', link: '/login', icon: <LoginIcon /> },
+		{ title: 'signup', link: '/signup', icon: <HowToRegIcon /> },
 	];
 	const login_nav_info_while_logged_in = [
 		{ title: 'Profile', link: '', icon: <FaceIcon /> },
@@ -27,6 +27,9 @@ function App() {
 	let login_nav_info;
 	if (isLoggedIn == true) login_nav_info = login_nav_info_while_logged_in;
 	else login_nav_info = login_nav_info_while_not_logged_in;
+	useEffect(() => {
+		document.body.style.backgroundColor = '#def2dd';
+	}, []);
 	return (
 		<div className='App'>
 			<BasicInfoContext.Provider

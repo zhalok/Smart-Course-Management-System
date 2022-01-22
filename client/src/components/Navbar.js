@@ -7,10 +7,13 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LeftDrawer from './LeftDrawer';
+import { useNavigate } from 'react-router';
 
-export default function Navbar({ title, login_nav_info }) {
+export default function Navbar({ title, currentUser, login_nav_info }) {
 	console.log(login_nav_info);
 	const [showDrawer, setShowDrawer] = useState(false);
+	const navigate = useNavigate();
+
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position='static'>
@@ -35,7 +38,13 @@ export default function Navbar({ title, login_nav_info }) {
 					<div>{title}</div>
 					<div style={{ width: 'fit-content', marginLeft: 'auto' }}>
 						{login_nav_info.map((e, index) => (
-							<Button color='inherit' startIcon={e.icon}>
+							<Button
+								color='inherit'
+								startIcon={e.icon}
+								onClick={() => {
+									navigate('/login');
+								}}
+							>
 								<Typography variant='subtitile1'>{e.title}</Typography>
 							</Button>
 						))}

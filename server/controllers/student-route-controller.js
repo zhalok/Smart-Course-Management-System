@@ -1,26 +1,12 @@
 const pg_client = require('../utils/create-dbclient');
 const db_queries = require('../utils/db_queries');
-const uuid4 = require('uuidv4');
+const { v4: uuidv4 } = require('uuid');
 
 const students = {};
 
 students.add_new_student = (req, res, next) => {
-	const { first_name,last_name, }
-	pg_client.query('select * from students', (err, data) => {
-		if (err) {
-			if (err.code === '42P01') {
-				pg_client.query(db_queries.create_student_table, (err, data) => {
-					if (err) {
-						next(err);
-					} else {
-						res.json(data.rows);
-					}
-				});
-			}
-		} else {
-			res.json(data.rows);
-		}
-	});
+	// res.json(uuid());
+	v4();
 };
 
 students.get_all_students = (req, res, next) => {

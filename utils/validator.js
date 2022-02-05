@@ -1,3 +1,5 @@
+const { hash, hashSync } = require('bcrypt');
+
 const validator = {};
 
 validator.emailValidator = (email) => {
@@ -10,8 +12,16 @@ validator.emailValidator = (email) => {
 	}
 };
 
-validator.passwordEncrypter = (password) => {};
+validator.passwordEncrypter = (password, callback) => {
+	const salt_rounds = 1;
+	hash(password, salt_rounds, (err, result) => {
+		if (!err && result) callback(null, result);
+		else callback(err);
+	});
+};
 
 validator.passwordValidator = (passowrd) => {};
+
+// validator.passwordEncrypter('hello');
 
 module.exports = validator;

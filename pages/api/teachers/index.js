@@ -1,5 +1,8 @@
 const { pgClient } = require('../../../database/pg_client');
-const { emailValidator } = require('../../../utils/validator');
+const {
+	emailValidator,
+	passwordEncrypter,
+} = require('../../../utils/validator');
 
 const createNewTeacher = (req, res) => {
 	const { name, email, password, institution } = req.body;
@@ -9,19 +12,24 @@ const createNewTeacher = (req, res) => {
 		return;
 	}
 
-	const query_string = `insert into teachers (name,email,password,institution) values('${name}','${email}','${password}','${institution}');`;
-
-	pgClient
-		.query(query_string)
-		.then((data) => res.json('data inserted'))
-		.catch((e) => {
-			console.log(e);
-			if (e.code == '23505') {
-				res.status(500).json('EmailExists');
-			} else {
-				res.status(500).json('There was an unknown error');
-			}
-		});
+	passwordEncrypter(password, (err, encrypted_password) => {
+		if (!err && encrypted_password) {
+			const query_string = `insert into teachers (name,email,password,institution) values('${name}','${email}','${encrypted_password}','${institution}');`;
+			pgClient
+				.query(query_string)
+				.then((data) => res.json('data inserted'))
+				.catch((e) => {
+					console.log(e);
+					if (e.code == '23505') {
+						res.status(500).json('EmailExists');
+					} else {
+						res.status(500).json('There was an unknown error');
+					}
+				});
+		} else {
+			res.status(500).json('there was an error');
+		}
+	});
 };
 
 const getAllTeachers = (req, res) => {
@@ -39,9 +47,23 @@ const getTeacherById = (req, res) => {
 		.catch((e) => res.status(500).json('error'));
 };
 
-const updateTeacherById = (req, res) => {};
+const updateTeacherById = (req, res) => {
+	const { id, field, value } = req.body;
+	const query_string = `update teachers set ${field} = '${value}' where id=${id}`;
+	pgClient
+		.query(query_string)
+		.then((data) => res.status(200).json('data updated'))
+		.catch((e) => res.status(500).json('there was an error updating'));
+};
 
-const deleteTeacherById = (req, res) => {};
+const deleteTeacherById = (req, res) => {
+	const { id } = req.query;
+	const query_string = `delete from teachers where id=${id}`;
+	pgClient
+		.query(query_string)
+		.then((data) => res.status(200).json('data deleted'))
+		.catch((e) => res.status(500).json('there was a problem'));
+};
 
 const deleteAllTeachers = (req, res) => {
 	pgClient
@@ -49,15 +71,13 @@ const deleteAllTeachers = (req, res) => {
 		.then(
 			pgClient
 				.query(
-					'create table teachers(id serial primary key ,name varchar(50) not null ,email varchar(50) not null   ,password varchar(50)  not null ,institution varchar(100) not null );'
+					'create table teachers(id serial primary key ,name varchar(50) not null ,email varchar(50) not null unique   ,password varchar(500)  not null ,institution varchar(100) not null );'
 				)
 				.then((data) => res.json('Teachers were deleted'))
 				.catch((e) => console.log(e))
 		)
 		.catch((e) => console.log(e));
 };
-
-const authTeacher = (req, res) => {};
 
 export default function handler(req, res) {
 	const { method, query } = req;
@@ -70,6 +90,10 @@ export default function handler(req, res) {
 	} else if (method == 'POST') {
 		createNewTeacher(req, res);
 	} else if (method == 'PUT') {
+		updateTeacherById(req, res);
 	} else if (method == 'DELETE') {
+		const { id } = req.query;
+		if (id == 'all' || !id) deleteAllTeachers(req, res);
+		else deleteTeacherById(req, res);
 	}
 }

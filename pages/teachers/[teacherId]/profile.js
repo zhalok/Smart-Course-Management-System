@@ -18,25 +18,6 @@ export default function Profile({}) {
 }
 
 // export async function getServerSideProps(context) {
-// 	const { params, locales } = context;
-// 	const { teacherId } = params;
-
-// 	const response = await fetch(
-// 		`http://localhost:4000/teachers?id=${teacherId}`
-// 	);
-// 	const data = await response.json();
-// 	if (data.length == 0) {
-// 		return {
-// 			redirect: {
-// 				destination: '/',
-// 				permanent: false,
-// 			},
-// 		};
-// 	} else
-// 		return {
-// 			props: {
-// 				teacherProfile: data,
-// 				teacherId,
-// 			},
-// 		};
+// 	const { req, res } = context;
+// 	res.setHeader()
 // }

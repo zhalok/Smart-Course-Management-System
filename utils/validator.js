@@ -1,4 +1,4 @@
-const { hash, hashSync } = require('bcrypt');
+const { hash, compare } = require('bcrypt');
 
 const validator = {};
 
@@ -20,7 +20,16 @@ validator.passwordEncrypter = (password, callback) => {
 	});
 };
 
-validator.passwordValidator = (passowrd) => {};
+validator.passwordValidator = (
+	given_password,
+	encrypted_password,
+	callback
+) => {
+	compare(given_password, encrypted_password, (err, result) => {
+		if (!err && result) callback(null, result);
+		else callback(null);
+	});
+};
 
 // validator.passwordEncrypter('hello');
 

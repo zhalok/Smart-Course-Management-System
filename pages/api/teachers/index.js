@@ -1,10 +1,13 @@
 const { pgClient } = require('../../../database/pg_client');
+const uuid = require('uuid');
 const {
 	emailValidator,
 	passwordEncrypter,
 } = require('../../../utils/validator');
 
 const createNewTeacher = (req, res) => {
+	// console.log(uuidv4());
+	const id = Date.now();
 	const { name, email, password, institution } = req.body;
 
 	if (!emailValidator(email)) {
@@ -14,11 +17,19 @@ const createNewTeacher = (req, res) => {
 
 	passwordEncrypter(password, (err, encrypted_password) => {
 		if (!err && encrypted_password) {
-			console.log(encrypted_password);
-			const query_string = `insert into teachers (name,email,password,institution) values('${name}','${email}','${encrypted_password}','${institution}');`;
+			const query_string = `insert into teachers (id, name,email,password,institution) values( '${id}' , '${name}','${email}','${encrypted_password}','${institution}');`;
 			pgClient
 				.query(query_string)
-				.then((data) => res.json('data inserted'))
+				.then((data) => {
+					const new_entry = {
+						id,
+						name,
+						email,
+						encrypted_password,
+						institution,
+					};
+					res.status(200).json(new_entry);
+				})
 				.catch((e) => {
 					console.log(e);
 					if (e.code == '23505') {
@@ -72,7 +83,7 @@ const deleteAllTeachers = (req, res) => {
 		.then(
 			pgClient
 				.query(
-					'create table teachers(id serial primary key ,name varchar(50) not null ,email varchar(50) not null   ,password varchar(500)  not null ,institution varchar(100) not null );'
+					'create table teachers(id varchar(500) primary key ,name varchar(50) not null ,email varchar(50) not null unique  ,password varchar(500)  not null ,institution varchar(100) not null );'
 				)
 				.then((data) => res.json('Teachers were deleted'))
 				.catch((e) => console.log(e))

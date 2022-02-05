@@ -13,6 +13,12 @@ export default async function authTeacher(req, res) {
 		} else {
 			const teacher = data.rows[0];
 			const isAuthenticated = await compare(password, teacher.password);
+			if (isAuthenticated == true) {
+				res.setHeader('set-Cookie', ['name=zhalok']);
+				res.status(200).json('authenticated');
+			} else {
+				res.status(401).json('unauthenticated');
+			}
 		}
 	} catch (e) {}
 }

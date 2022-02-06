@@ -4,17 +4,6 @@ const { generateToken } = require('../../../utils/generators');
 const { tokenValidator } = require('../../../utils/validators');
 
 export default async function authTeacher(req, res) {
-	if (req.cookies && req.cookies.token) {
-		const encrypted_token = req.cookies.token;
-		const decrypted_token = tokenValidator(
-			encrypted_token,
-			process.env.SECRET_KEY
-		);
-
-		res.status(200).json(decrypted_token);
-		return;
-	}
-
 	const { email, password } = req.body;
 	const query_string = `select * from teachers where email='${email}'`;
 	try {
@@ -33,10 +22,10 @@ export default async function authTeacher(req, res) {
 					tokenPayload,
 					process.env.SECRET_KEY
 				);
-				res.setHeader('set-Cookie', [`token=${encryptedToken}`]);
-				res.status(200).json(tokenPayload);
+
+				res.status(200).json({ verified: true, token: encryptedToken });
 			} else {
-				res.status(401).json({ message: 'unauthenticated' });
+				res.status(401).json({ verified: false });
 			}
 		}
 	} catch (e) {}

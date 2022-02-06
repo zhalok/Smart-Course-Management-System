@@ -6,15 +6,64 @@ import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import ClassTwoToneIcon from '@mui/icons-material/ClassTwoTone';
 import CoPresentTwoToneIcon from '@mui/icons-material/CoPresentTwoTone';
 import PeopleTwoToneIcon from '@mui/icons-material/PeopleTwoTone';
+import { Button } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export default function Home() {
 	const [windowWidth, setWindowWidth] = useState(0);
 	const [windowHeight, setWindowHeight] = useState(0);
 
+	const [loggedInUser, setLoggedInUser] = useState(null);
+	const router = useRouter();
+
 	useEffect(() => {
 		setWindowWidth(window.innerWidth);
 		setWindowHeight(window.innerHeight);
+		const token = localStorage.getItem('token');
+		if (!token) {
+			setLoggedInUser(null);
+			return;
+		}
+
+		fetch(`http://localhost:3000/api/auth/authorization?token=${token}`)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.authorized == true) {
+					setLoggedInUser(data.info.userId);
+				} else {
+					setLoggedInUser(null);
+				}
+			})
+			.catch((e) => console.log(e));
 	}, []);
+
+	const loggedInComponent = (
+		<div>
+			<Link href={`/profile/${loggedInUser}`}>
+				<div>Profile</div>
+			</Link>
+			<Button
+				onClick={() => {
+					localStorage.removeItem('token');
+					setLoggedInUser(null);
+					router.push('/');
+				}}
+			>
+				Log out
+			</Button>
+		</div>
+	);
+
+	const loggedOutComponent = (
+		<div>
+			<Link href={'/login'}>
+				<div>Login</div>
+			</Link>
+			<Link href={'/signup'}>
+				<div>Signup</div>
+			</Link>
+		</div>
+	);
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'row', padding: '50px' }}>
@@ -72,6 +121,7 @@ export default function Home() {
 						Icon={<PeopleTwoToneIcon />}
 					/>
 				</div>
+				<div>{loggedInUser ? loggedInComponent : loggedOutComponent}</div>
 			</div>
 			<div
 				style={{
@@ -99,4 +149,12 @@ export default function Home() {
 			</div>
 		</div>
 	);
+}
+
+export async function getServerSideProps(context) {
+	return {
+		props: {
+			something: '',
+		},
+	};
 }

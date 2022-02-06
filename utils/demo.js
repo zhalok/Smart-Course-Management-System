@@ -1,20 +1,10 @@
-const proimseGenerator = (command) => {
-	return new Promise((resolve, reject) => {
-		if (command == 'yes') resolve('Yes');
-		else reject('No');
-	});
+const { tokenEncryptor } = require('./encryptors');
+
+const data = {
+	name: 'zhalok',
+	age: '23',
 };
 
-const func = async () => {
-	try {
-		const res = await proimseGenerator('No');
-		console.log(res);
-	} catch (e) {
-		console.log(e);
-	}
+const token = tokenEncryptor(data);
 
-	console.log('hi');
-	// console.log(res);
-};
-
-func();
+console.log(token);

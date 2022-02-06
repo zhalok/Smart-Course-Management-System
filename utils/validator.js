@@ -1,4 +1,5 @@
 const { hash, compare } = require('bcrypt');
+const jsonwebtoken = require('jsonwebtoken');
 
 const validator = {};
 
@@ -12,14 +13,6 @@ validator.emailValidator = (email) => {
 	}
 };
 
-validator.passwordEncrypter = (password, callback) => {
-	const salt_rounds = 1;
-	hash(password, salt_rounds, (err, result) => {
-		if (!err && result) callback(null, result);
-		else callback(err);
-	});
-};
-
 validator.passwordValidator = (
 	given_password,
 	encrypted_password,
@@ -29,6 +22,10 @@ validator.passwordValidator = (
 		if (!err && result) callback(null, result);
 		else callback(null);
 	});
+};
+
+validator.tokenValidator = () => {
+	console.log(jsonwebtoken);
 };
 
 // validator.passwordEncrypter('hello');

@@ -1,6 +1,6 @@
 const { pgClient } = require('../../../database/pg_client');
 const uuid = require('uuid');
-const { emailValidator } = require('../../../utils/validator');
+const { emailValidator } = require('../../../utils/validators');
 const { passwordEncrypter } = require('../../../utils/encryptors');
 
 const createNewTeacher = (req, res) => {

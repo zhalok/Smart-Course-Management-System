@@ -1,5 +1,5 @@
 const { hash, compare } = require('bcrypt');
-const jsonwebtoken = require('jsonwebtoken');
+const { verify } = require('jsonwebtoken');
 
 const validator = {};
 
@@ -24,8 +24,9 @@ validator.passwordValidator = (
 	});
 };
 
-validator.tokenValidator = () => {
-	console.log(jsonwebtoken);
+validator.tokenValidator = (encryptedToken, secretKey) => {
+	const decryptedToken = verify(encryptedToken, secretKey);
+	return decryptedToken;
 };
 
 // validator.passwordEncrypter('hello');

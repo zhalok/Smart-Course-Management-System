@@ -10,10 +10,9 @@ encryptor.passwordEncrypter = (password, callback) => {
 	});
 };
 
-encryptor.tokenEncryptor = (payload) => {
-	const secretKey = process.env.SECRET_KEY;
-	const token = sign(payload, secretKey, { algorithm: 'HS256' });
-	return token;
+encryptor.tokenEncryptor = (payload, secretKey) => {
+	const encryptedToken = sign(payload, secretKey, { algorithm: 'HS256' });
+	return encryptedToken;
 };
 
 module.exports = encryptor;

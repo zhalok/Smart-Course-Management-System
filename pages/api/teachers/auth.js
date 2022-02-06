@@ -1,9 +1,10 @@
 const { setCookies } = require('cookies-next');
 const { pgClient } = require('../../../database/pg_client');
 const { compare } = require('bcrypt');
+const { generateToken } = require('../../../utils/generator');
 
 export default async function authTeacher(req, res) {
-	console.log(req.headers.cookie);
+	// console.log(req.headers.cookie);
 	const { email, password } = req.body;
 	const query_string = `select * from teachers where email='${email}'`;
 	try {
@@ -14,7 +15,15 @@ export default async function authTeacher(req, res) {
 			const teacher = data.rows[0];
 			const isAuthenticated = await compare(password, teacher.password);
 			if (isAuthenticated == true) {
-				res.setHeader('set-Cookie', ['name=zhalok']);
+				const tokenPayload = {
+					userId: teacher.id,
+					role: 'teacher',
+				};
+				const encryptedToken = generateToken(
+					tokenPayload,
+					process.env.SECRET_KEY
+				);
+				res.setHeader('set-Cookie', [`token=${encryptedToken}`]);
 				res.status(200).json('authenticated');
 			} else {
 				res.status(401).json('unauthenticated');

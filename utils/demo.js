@@ -5,6 +5,6 @@ const data = {
 	age: '23',
 };
 
-const token = tokenEncryptor(data);
+const token = tokenEncryptor(data, '123');
 
 console.log(token);

@@ -18,11 +18,15 @@ export default function Login() {
 			}),
 		})
 			.then((res) => {
-				return res.json();
+				{
+					localStorage.setItem('token', document.cookie.token);
+					return res.json();
+				}
 			})
 			.then((data) => {
 				if (data.verified == true) {
 					localStorage.setItem('token', data.token);
+
 					router.push('/');
 				}
 			})

@@ -39,18 +39,41 @@ export default function Home() {
 
 	const loggedInComponent = (
 		<div>
-			<Link href={`/profile/${loggedInUser}`}>
-				<div>Profile</div>
-			</Link>
-			<Button
+			<div
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push(`/profile/${loggedInUser}`);
+				}}
+			>
+				<OutlineButton
+					DefaultBgColor='white'
+					HoverBgColor='#2940ea'
+					DefaultTextColor='black'
+					HoverTextColor='white'
+					Text='Profile'
+					Width='80%'
+					Icon={<MapsHomeWorkIcon />}
+				/>
+			</div>
+
+			<div
+				style={{ marginTop: '10px' }}
 				onClick={() => {
 					localStorage.removeItem('token');
 					setLoggedInUser(null);
-					router.push('/');
+					router.push(`/`);
 				}}
 			>
-				Log out
-			</Button>
+				<OutlineButton
+					DefaultBgColor='white'
+					HoverBgColor='#2940ea'
+					DefaultTextColor='black'
+					HoverTextColor='white'
+					Text='Logout'
+					Width='80%'
+					Icon={<MapsHomeWorkIcon />}
+				/>
+			</div>
 		</div>
 	);
 

@@ -15,6 +15,7 @@ export default async function authTeacher(req, res) {
 			const isAuthenticated = await compare(password, teacher.password);
 			if (isAuthenticated == true) {
 				const tokenPayload = {
+					name: teacher.name,
 					userId: teacher.id,
 					role: 'teacher',
 				};
@@ -23,6 +24,7 @@ export default async function authTeacher(req, res) {
 					process.env.SECRET_KEY
 				);
 
+				res.setHeader('set-Cookie', [`token=${encryptedToken}`]);
 				res.status(200).json({ verified: true, token: encryptedToken });
 			} else {
 				res.status(401).json({ verified: false });

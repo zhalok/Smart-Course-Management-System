@@ -13,12 +13,16 @@ export default function Teachers({ data }) {
 			<Sidebar />
 			<div
 				style={{
-					width: '50%',
+					width: '70%',
 					marginLeft: 'auto',
 					marginRight: 'auto',
 					marginTop: '10px',
+					padding: '20px',
+					border: '1px solid black',
+					borderRadius: '10px',
 				}}
 			>
+				<h3>Teachers</h3>
 				{data.map((e, index) => {
 					return <TeacherCard info={e} key={index} />;
 				})}

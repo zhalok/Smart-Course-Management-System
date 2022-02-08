@@ -12,23 +12,24 @@ export default function TeacherCard({ info }) {
 				display: 'flex',
 				flexDirection: 'row',
 				padding: '20px',
-				width: '100%',
+				width: '70%',
 				border: '1px solid black',
 				backgroundColor: '#D4F2FC',
 				marginTop: '20px',
+				marginLeft: 'auto',
+				marginRight: 'auto',
+				borderRadius: '10px',
 			}}
 		>
 			<div
 				style={{
 					width: '100px',
 					height: '100px',
-					marginRight: 'auto',
-					marginLeft: 'auto',
 				}}
 			>
 				<Image src={img} alt='hello' height={500} width={500} />
 			</div>
-			<div style={{ width: '50%' }}>
+			<div style={{ width: '50%', marginLeft: '50px' }}>
 				<h4>Name: {info.name}</h4>
 				<h5>Institution: {info.institution}</h5>
 			</div>

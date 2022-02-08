@@ -59,11 +59,11 @@ const getTeacherById = (req, res) => {
 
 const updateTeacherById = (req, res) => {
 	const { id, field, value } = req.body;
-	const query_string = `update teachers set ${field} = '${value}' where id=${id}`;
+	const query_string = `update teachers set ${field} = '${value}' where id='${id}'`;
 	pgClient
 		.query(query_string)
 		.then((data) => res.status(200).json('data updated'))
-		.catch((e) => res.status(500).json('there was an error updating'));
+		.catch((e) => res.status(500).json(e));
 };
 
 const deleteTeacherById = (req, res) => {

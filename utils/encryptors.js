@@ -1,5 +1,5 @@
 const { sign } = require('jsonwebtoken');
-
+const { hash } = require('bcrypt');
 const encryptor = {};
 
 encryptor.passwordEncrypter = (password, callback) => {

@@ -1,16 +1,62 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.teacher-card {
+	position: static;
+	width: 352px;
+	height: 80px;
+	left: 20px;
+	top: 20px;
+
+	/* M3/sys/light/surface */
+
+	background: #cfa0c3;
+	/* M3/sys/light/outline */
+
+	border: 1px solid #79747e;
+	box-sizing: border-box;
+	border-radius: 12px;
+
+	/* Inside auto layout */
+
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+	margin: 0px 57px;
+}
+
+.teacher-card-info {
+	/* Auto layout */
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0px;
+
+	position: static;
+	width: 184px;
+	height: 48px;
+	left: 56px;
+	top: 0px;
+
+	/* Inside auto layout */
+
+	flex: none;
+	order: 1;
+	flex-grow: 1;
+	margin: 0px 16px;
 }

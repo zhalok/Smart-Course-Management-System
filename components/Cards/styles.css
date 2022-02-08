@@ -1,0 +1,23 @@
+.teacher-card {
+	position: static;
+	width: 352px;
+	height: 80px;
+	left: 20px;
+	top: 20px;
+
+	/* M3/sys/light/surface */
+
+	background: #fffbfe;
+	/* M3/sys/light/outline */
+
+	border: 1px solid #79747e;
+	box-sizing: border-box;
+	border-radius: 12px;
+
+	/* Inside auto layout */
+
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+	margin: 0px 57px;
+}

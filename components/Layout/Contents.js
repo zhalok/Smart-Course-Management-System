@@ -14,9 +14,8 @@ export default function Contents({ ContentType }) {
 				width: (windowWidth * 7) / 10,
 				border: '1px solid black',
 				padding: '20px',
-				height: (windowHeight * 8) / 10,
-				overflow: 'scroll',
-				marginLeft: '10px',
+				height: windowHeight,
+				overflowY: 'scroll',
 			}}
 		>
 			Courses

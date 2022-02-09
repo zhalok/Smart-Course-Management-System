@@ -1,25 +1,32 @@
 import Sidebar from '../../components/Layout/Sidebar';
 import TeacherCard from '../../components/Cards/TeacherCard';
+import { useEffect, useState } from 'react';
 
 export default function Teachers({ data }) {
+	const [windowWidth, setWindowWidth] = useState(0);
+	const [windowHeight, setWindowHeight] = useState(0);
+	useEffect(() => {
+		setWindowWidth(window.innerWidth);
+		setWindowHeight(window.innerHeight);
+	});
 	return (
 		<div
 			style={{
-				display: 'flex',
-				flexDirection: 'row',
-				padding: '50px',
+				display: 'grid',
+				gridTemplateColumns: 'auto auto',
+
+				padding: '40px',
 			}}
 		>
 			<Sidebar />
 			<div
 				style={{
-					width: '70%',
-					marginLeft: 'auto',
-					marginRight: 'auto',
-					marginTop: '10px',
-					padding: '20px',
-					border: '1px solid black',
 					borderRadius: '10px',
+					width: (windowWidth * 7) / 10,
+					border: '1px solid black',
+					padding: '20px',
+					height: windowHeight,
+					overflowY: 'scroll',
 				}}
 			>
 				<h3>Teachers</h3>

@@ -12,7 +12,7 @@ export default function TeacherCard({ info }) {
 				display: 'flex',
 				flexDirection: 'row',
 				padding: '20px',
-				width: '70%',
+				width: '100%%',
 				border: '1px solid black',
 				backgroundColor: '#D4F2FC',
 				marginTop: '20px',

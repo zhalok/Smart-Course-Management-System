@@ -10,8 +10,8 @@ export default function Home() {
 			style={{
 				display: 'grid',
 				gridTemplateColumns: 'auto auto',
-				gridColumnGap: '10px',
-				padding: '20px',
+
+				padding: '40px',
 			}}
 		>
 			<Sidebar />

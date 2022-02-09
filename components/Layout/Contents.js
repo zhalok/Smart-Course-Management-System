@@ -11,7 +11,7 @@ export default function Contents({ ContentType }) {
 		<div
 			style={{
 				borderRadius: '10px',
-				width: (windowWidth * 8) / 10,
+				width: (windowWidth * 7) / 10,
 				border: '1px solid black',
 				padding: '20px',
 				height: (windowHeight * 8) / 10,
@@ -19,7 +19,7 @@ export default function Contents({ ContentType }) {
 				marginLeft: '10px',
 			}}
 		>
-			{ContentType}
+			Courses
 		</div>
 	);
 }

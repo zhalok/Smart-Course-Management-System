@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import OutlineButton from '../Buttons/Outlined';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
@@ -6,6 +5,8 @@ import ClassTwoToneIcon from '@mui/icons-material/ClassTwoTone';
 import CoPresentTwoToneIcon from '@mui/icons-material/CoPresentTwoTone';
 import PeopleTwoToneIcon from '@mui/icons-material/PeopleTwoTone';
 import { useRouter } from 'next/router';
+import LoginIcon from '@mui/icons-material/Login';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 export default function Sidebar() {
 	const [windowWidth, setWindowWidth] = useState(0);
@@ -77,12 +78,38 @@ export default function Sidebar() {
 
 	const loggedOutComponent = (
 		<div>
-			<Link href={'/login'}>
-				<div>Login</div>
-			</Link>
-			<Link href={'/signup'}>
-				<div>Signup</div>
-			</Link>
+			<div
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push('/login');
+				}}
+			>
+				<OutlineButton
+					DefaultBgColor='white'
+					HoverBgColor='#2940ea'
+					DefaultTextColor='black'
+					HoverTextColor='white'
+					Text='Login'
+					Width='80%'
+					Icon={<LoginIcon />}
+				/>
+			</div>
+			<div
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push('/signup');
+				}}
+			>
+				<OutlineButton
+					DefaultBgColor='white'
+					HoverBgColor='#2940ea'
+					DefaultTextColor='black'
+					HoverTextColor='white'
+					Text='Signup'
+					Width='80%'
+					Icon={<VpnKeyIcon />}
+				/>
+			</div>
 		</div>
 	);
 
@@ -97,7 +124,12 @@ export default function Sidebar() {
 				flexDirection: 'column',
 			}}
 		>
-			<div style={{ marginTop: '50px' }}>
+			<div
+				style={{ marginTop: '50px' }}
+				onClick={() => {
+					router.push('/');
+				}}
+			>
 				<OutlineButton
 					DefaultBgColor='white'
 					HoverBgColor='#2940ea'
@@ -108,7 +140,12 @@ export default function Sidebar() {
 					Icon={<MapsHomeWorkIcon />}
 				/>
 			</div>
-			<div style={{ marginTop: '10px' }}>
+			<div
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push('/courses');
+				}}
+			>
 				<OutlineButton
 					DefaultBgColor='white'
 					HoverBgColor='#2940ea'
@@ -119,7 +156,12 @@ export default function Sidebar() {
 					Icon={<ClassTwoToneIcon />}
 				/>
 			</div>
-			<div style={{ marginTop: '10px' }}>
+			<div
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push('/teachers');
+				}}
+			>
 				<OutlineButton
 					DefaultBgColor='white'
 					HoverBgColor='#2940ea'
@@ -130,7 +172,12 @@ export default function Sidebar() {
 					Icon={<CoPresentTwoToneIcon />}
 				/>
 			</div>
-			<div style={{ marginTop: '10px' }}>
+			<div
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push('/students');
+				}}
+			>
 				<OutlineButton
 					DefaultBgColor='white'
 					HoverBgColor='#2940ea'

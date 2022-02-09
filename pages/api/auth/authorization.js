@@ -1,6 +1,6 @@
 const { tokenValidator } = require('../../../utils/validators');
 
-export default function handler(req, res) {
+export default function authorization(req, res) {
 	const token = req.query.token;
 	// console.log(token);
 	if (token) {

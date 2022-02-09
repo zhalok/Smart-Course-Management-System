@@ -15,7 +15,7 @@ const createNewTeacher = (req, res) => {
 
 	passwordEncrypter(password, (err, encrypted_password) => {
 		if (!err && encrypted_password) {
-			const query_string = `insert into teachers (id, name,email,password,institution) values( '${id}' , '${name}','${email}','${encrypted_password}','${institution}');`;
+			const query_string = `insert into teachers (id, name,email,password,institution,courses) values( '${id}' , '${name}','${email}','${encrypted_password}','${institution}',0);`;
 			pgClient
 				.query(query_string)
 				.then((data) => {
@@ -81,7 +81,7 @@ const deleteAllTeachers = (req, res) => {
 		.then(
 			pgClient
 				.query(
-					'create table teachers(id varchar(500) primary key ,name varchar(50) not null ,email varchar(50) not null unique  ,password varchar(500)  not null ,institution varchar(100) not null );'
+					'create table teachers(id varchar(500) primary key ,name varchar(50) not null ,email varchar(50) not null unique  ,password varchar(500)  not null ,institution varchar(100) not null,courses integer  );'
 				)
 				.then((data) => res.json('Teachers were deleted'))
 				.catch((e) => console.log(e))

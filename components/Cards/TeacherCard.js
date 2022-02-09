@@ -32,6 +32,7 @@ export default function TeacherCard({ info }) {
 			<div style={{ width: '50%', marginLeft: '50px' }}>
 				<h4>Name: {info.name}</h4>
 				<h5>Institution: {info.institution}</h5>
+				<h5>Courses: {info.courses}</h5>
 			</div>
 		</div>
 	);

@@ -1,12 +1,19 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { Button, TextField, Grid } from '@mui/material';
+import emailValidator from '../../utils/client_side_validators/emailValidator';
 
 export default function Login() {
 	const router = useRouter();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
+	// console.log(emailValidator);
 	const auth = () => {
+		if (!emailValidator(email)) {
+			alert('Please give a correct email');
+			return;
+		}
+
 		fetch('http://localhost:3000/api/auth/authentification', {
 			method: 'POST',
 			headers: {
@@ -17,51 +24,97 @@ export default function Login() {
 				password,
 			}),
 		})
-			.then((res) => {
-				{
-					localStorage.setItem('token', document.cookie.token);
-					return res.json();
-				}
-			})
+			.then((res) => res.json())
 			.then((data) => {
-				if (data.verified == true) {
-					localStorage.setItem('token', data.token);
-
-					router.push('/');
-				}
+				localStorage.setItem('token', data.token);
+				router.push('/');
 			})
-			.catch((e) => console.log(e));
+			.catch((e) => {
+				alert('You are unauthenticated');
+				setEmail('');
+				setPassword('');
+			});
 	};
 
 	return (
-		<div>
+		<div
+			style={{
+				width: '40%',
+				marginLeft: 'auto',
+				marginRight: 'auto',
+				marginTop: '100px',
+				padding: '30px',
+				border: '1px solid black',
+				borderRadius: '10px',
+			}}
+		>
 			<div>
-				<label>Email</label>
-				<input
-					type='email'
-					value={email}
-					onChange={(e) => {
-						setEmail(e.target.value);
-					}}
-				/>
-				<br />
-				<label>password</label>
-
-				<input
-					type='password'
-					value={password}
-					onChange={(e) => {
-						setPassword(e.target.value);
-					}}
-				/>
-				<br />
-				<button
-					onClick={() => {
-						auth();
+				<h1>Login</h1>
+			</div>
+			<div
+				style={{
+					display: 'grid',
+					gridTemplateAreas: 'auto',
+					rowGap: '10px',
+					marginTop: '50px',
+				}}
+			>
+				<div>
+					<TextField
+						fullWidth
+						value={email}
+						label='Email'
+						type='email'
+						onChange={(e) => {
+							setEmail(e.target.value);
+						}}
+						sx={{ backgroundColor: 'whitesmoke' }}
+					/>
+				</div>
+				<div>
+					<TextField
+						fullWidth
+						value={password}
+						label='Password'
+						type='password'
+						onChange={(e) => {
+							setPassword(e.target.value);
+						}}
+						sx={{ backgroundColor: 'whitesmoke' }}
+					/>
+				</div>
+				<div
+					style={{
+						display: 'grid',
+						gridTemplateAreas: 'auto',
+						rowGap: '10px',
+						marginTop: '20px',
 					}}
 				>
-					submit
-				</button>
+					<div>
+						<Button
+							variant='contained'
+							fullWidth
+							onClick={() => {
+								auth();
+							}}
+						>
+							Login
+						</Button>
+					</div>
+					<div>
+						<Button
+							variant='contained'
+							fullWidth
+							color='success'
+							onClick={() => {
+								router.push('/signup');
+							}}
+						>
+							Signup
+						</Button>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

@@ -3,7 +3,7 @@ const { compare } = require('bcrypt');
 const { generateToken } = require('../../../utils/generators');
 const { tokenValidator } = require('../../../utils/validators');
 
-export default async function authTeacher(req, res) {
+export default async function authentification(req, res) {
 	const { email, password } = req.body;
 	const query_string = `select * from teachers where email='${email}'`;
 	try {
@@ -24,11 +24,12 @@ export default async function authTeacher(req, res) {
 					process.env.SECRET_KEY
 				);
 
-				res.setHeader('set-Cookie', [`token=${encryptedToken}`]);
 				res.status(200).json({ verified: true, token: encryptedToken });
 			} else {
 				res.status(401).json({ verified: false });
 			}
 		}
-	} catch (e) {}
+	} catch (e) {
+		console.log(e);
+	}
 }

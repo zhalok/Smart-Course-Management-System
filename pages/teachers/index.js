@@ -13,8 +13,8 @@ export default function Teachers({ data }) {
 		<div
 			style={{
 				display: 'grid',
-				gridTemplateColumns: 'auto auto',
-
+				gridTemplateColumns: '20% 80%',
+				columnGap: '20px',
 				padding: '40px',
 			}}
 		>

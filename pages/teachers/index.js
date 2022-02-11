@@ -1,6 +1,7 @@
 import Sidebar from '../../components/Layout/Sidebar';
 import TeacherCard from '../../components/Cards/TeacherCard';
 import { useEffect, useState } from 'react';
+import TeacherSidebar from '../../components/Layout/TeacherSidebar';
 
 export default function Teachers({ data }) {
 	const [windowWidth, setWindowWidth] = useState(0);
@@ -10,23 +11,13 @@ export default function Teachers({ data }) {
 		setWindowHeight(window.innerHeight);
 	});
 	return (
-		<div
-			style={{
-				display: 'grid',
-				gridTemplateColumns: '20% 80%',
-				columnGap: '20px',
-				padding: '40px',
-			}}
-		>
-			<Sidebar />
+		<div className='layout-grid'>
+			<TeacherSidebar />
 			<div
+				className='content'
 				style={{
-					borderRadius: '10px',
 					width: (windowWidth * 7) / 10,
-					border: '1px solid black',
-					padding: '20px',
 					height: windowHeight,
-					overflowY: 'scroll',
 				}}
 			>
 				<h3>Teachers</h3>

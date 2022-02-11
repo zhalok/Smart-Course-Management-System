@@ -8,11 +8,9 @@ export default function Dashboard() {
 	});
 	return (
 		<div
+			className='dashboard'
 			style={{
-				border: '1px solid black',
-				borderRadius: '10px',
 				height: windowHeight,
-				padding: '20px',
 			}}
 		>
 			<h3>Dashboard</h3>

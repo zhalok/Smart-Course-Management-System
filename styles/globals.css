@@ -60,3 +60,37 @@ a {
 	flex-grow: 1;
 	margin: 0px 16px;
 }
+
+.dashboard {
+	border: 1px solid black;
+	border-radius: 10px;
+
+	padding: 20px;
+}
+
+.layout-grid {
+	display: grid;
+	grid-template-columns: 20% 80%;
+	column-gap: 10px;
+	padding: 40px;
+	width: 100%;
+	/* marginleft: auto;
+	marginright: auto; */
+}
+
+.content {
+	border-radius: 10px;
+
+	border: 1px solid black;
+	padding: 20px;
+
+	overflowy: scroll;
+}
+
+.card {
+	display: grid;
+	grid-template-columns: 20% 50%;
+	column-gap: 70px;
+	padding: 10px;
+	border: 1px solid black;
+}

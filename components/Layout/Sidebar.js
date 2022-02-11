@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import TeacherSidebar from './TeacherSidebar';
 import StudentSidebar from './StudentSidebar';
-
+import { Button } from '@mui/material';
 export default function Sidebar() {
 	const [windowWidth, setWindowWidth] = useState(0);
 	const [windowHeight, setWindowHeight] = useState(0);
@@ -47,7 +47,7 @@ export default function Sidebar() {
 					router.push('/');
 				}}
 			>
-				Home
+				<button className='button'>Home</button>
 			</div>
 			<div
 				className='sidebar-elements'
@@ -56,7 +56,7 @@ export default function Sidebar() {
 					router.push('/courses');
 				}}
 			>
-				Courses
+				<button className='button'>Courses</button>
 			</div>
 			<div
 				className='sidebar-elements'
@@ -65,7 +65,7 @@ export default function Sidebar() {
 					router.push('/teachers');
 				}}
 			>
-				Mentors
+				<button className='button'>Mentors</button>
 			</div>
 			<div
 				className='sidebar-elements'
@@ -74,7 +74,7 @@ export default function Sidebar() {
 					router.push('/login');
 				}}
 			>
-				Log in
+				<button className='button'>Login</button>
 			</div>
 			<div
 				className='sidebar-elements'
@@ -83,7 +83,7 @@ export default function Sidebar() {
 					router.push('/signup');
 				}}
 			>
-				Sign up
+				<button className='button'>Signup</button>
 			</div>
 		</div>
 	);

@@ -19,7 +19,7 @@ export default function StudentSidebar({ loggedInUser }) {
 					router.push('/');
 				}}
 			>
-				My courses
+				<button className='button'>Home</button>
 			</div>
 			<div
 				className='sidebar-elements'
@@ -28,16 +28,25 @@ export default function StudentSidebar({ loggedInUser }) {
 					router.push('/courses');
 				}}
 			>
-				My classrooms
+				<button className='button'>Courses</button>
 			</div>
 			<div
 				className='sidebar-elements'
 				style={{ marginTop: '10px' }}
 				onClick={() => {
-					router.push(`/studentlist/${loggedInUser.userId}`);
+					router.push('/teachers');
 				}}
 			>
-				My students
+				<button className='button'>Mentors</button>
+			</div>
+			<div
+				className='sidebar-elements'
+				style={{ marginTop: '10px' }}
+				onClick={() => {
+					router.push(`/profile/${loggedInUser.userId}`);
+				}}
+			>
+				<button className='button'>Profile</button>
 			</div>
 			<div
 				className='sidebar-elements'
@@ -47,16 +56,7 @@ export default function StudentSidebar({ loggedInUser }) {
 					router.push('/');
 				}}
 			>
-				Log out
-			</div>
-			<div
-				className='sidebar-elements'
-				style={{ marginTop: '10px' }}
-				onClick={() => {
-					router.push(`/profile/${loggedInUser.userId}`);
-				}}
-			>
-				Profile
+				<button className='button'>Logout</button>
 			</div>
 		</div>
 	);

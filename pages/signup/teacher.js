@@ -27,7 +27,7 @@ export default function TeacherSignup() {
 		);
 		const data = await response.json();
 		const { imageUploadId } = data;
-
+		console.log(imageUploadId);
 		return imageUploadId;
 	};
 

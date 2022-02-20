@@ -1,0 +1,174 @@
+import { Button, IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useState } from 'react';
+import emailValidator from '../../utils/client_side_validators/emailValidator';
+export default function TeacherSignup() {
+	const Input = styled('input')({
+		display: 'none',
+	});
+
+	const [fullName, setFullName] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmedPassword, setConfirmedPassword] = useState('');
+	const [email, setEmail] = useState('');
+	const [institution, setInstitution] = useState('');
+	const [image, setImage] = useState(null);
+	const [imageUploadId, setImageUploadId] = useState('');
+
+	const uploadImage = async () => {
+		const formData = new FormData();
+		formData.append('teacherImage', image);
+		const response = await fetch(
+			'http://localhost:3000/api/imageUpload/teacher',
+			{
+				method: 'POST',
+				body: formData,
+			}
+		);
+		const data = await response.json();
+		const { imageUploadId } = data;
+
+		return imageUploadId;
+	};
+
+	const submitInfo = async () => {
+		if (emailValidator(email) == false) {
+			alert('Please provide a correct email');
+			setEmail('');
+			return;
+		}
+
+		if (
+			fullName.length == 0 ||
+			password.length == 0 ||
+			email.length == 0 ||
+			institution.length == 0
+		) {
+			alert('Please provide all the informations');
+			return;
+		}
+
+		if (password != confirmedPassword) {
+			alert('password did not match');
+			return;
+		}
+		const imageUploadId = await uploadImage();
+		console.log(imageUploadId);
+	};
+
+	return (
+		<div
+			style={{
+				width: '50%',
+				marginLeft: 'auto',
+				marginRight: 'auto',
+				border: '2px solid black ',
+				padding: '20px',
+				marginTop: '100px',
+			}}
+		>
+			<h1 style={{ textAlign: 'center' }}> Signup as teacher </h1>
+			<div
+				className='text-fields-container'
+				style={{
+					marginTop: '50px',
+				}}
+			>
+				<input
+					className='text-fields'
+					placeholder='Full Name'
+					value={fullName}
+					onChange={(e) => {
+						setFullName(e.target.value);
+					}}
+				/>
+			</div>
+			<div className='text-fields-container'>
+				<input
+					className='text-fields'
+					placeholder='Email'
+					type='email'
+					value={email}
+					onChange={(e) => {
+						setEmail(e.target.value);
+					}}
+				/>
+			</div>
+			<div className='text-fields-container'>
+				<input
+					className='text-fields'
+					placeholder='Password'
+					type='password'
+					value={password}
+					onChange={(e) => {
+						setPassword(e.target.value);
+					}}
+				/>
+			</div>
+			<div className='text-fields-container'>
+				<input
+					className='text-fields'
+					placeholder='Confirm Password'
+					type='password'
+					value={confirmedPassword}
+					onChange={(e) => {
+						setConfirmedPassword(e.target.value);
+					}}
+				/>
+			</div>
+			<div className='text-fields-container'>
+				<input
+					className='text-fields'
+					placeholder='Institution'
+					type='text'
+					value={institution}
+					onChange={(e) => {
+						setInstitution(e.target.value);
+					}}
+				/>
+			</div>
+			<div className='text-fields-container' style={{ marginTop: '20px' }}>
+				<label htmlFor='contained-button-file'>
+					<Input
+						accept='image/*'
+						id='contained-button-file'
+						type='file'
+						formEncType='multipart/form-data'
+						// value={image}
+						onChange={(e) => {
+							if (e.target.files && e.target.files[0]) {
+								setImage(e.target.files[0]);
+							}
+						}}
+					/>
+
+					<div>
+						<Button variant='contained' component='span' fullWidth>
+							Upload Image
+						</Button>
+					</div>
+				</label>
+			</div>
+			<div className='text-fields-container'>
+				<div
+					style={{
+						marginTop: '10px',
+						marginBottom: '10px',
+					}}
+				>
+					<Button
+						variant='contained'
+						component='span'
+						fullWidth
+						color='success'
+						onClick={() => {
+							submitInfo();
+						}}
+					>
+						Submit
+					</Button>
+				</div>
+			</div>
+		</div>
+	);
+}

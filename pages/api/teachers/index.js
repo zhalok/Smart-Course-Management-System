@@ -1,18 +1,16 @@
 const { pgClient } = require('../../../database/pg_client');
-const uuid = require('uuid');
 const { emailValidator } = require('../../../utils/validators');
 const { passwordEncrypter } = require('../../../utils/encryptors');
+const nextConnect = require('next-connect');
 
 const createNewTeacher = (req, res) => {
-	// console.log(uuidv4());
+	console.log(req.body);
 	const id = Date.now();
-	const { name, email, password, institution } = req.body;
-
+	const { name, email, password, institution, imageUploadId } = req.body;
 	if (!emailValidator(email)) {
 		res.status(500).json('Invalid Email');
 		return;
 	}
-
 	passwordEncrypter(password, (err, encrypted_password) => {
 		if (!err && encrypted_password) {
 			const query_string = `insert into teachers (id, name,email,password,institution,courses) values( '${id}' , '${name}','${email}','${encrypted_password}','${institution}',0);`;
@@ -81,7 +79,7 @@ const deleteAllTeachers = (req, res) => {
 		.then(
 			pgClient
 				.query(
-					'create table teachers(id varchar(500) primary key ,name varchar(50) not null ,email varchar(50) not null unique  ,password varchar(500)  not null ,institution varchar(100) not null,courses integer  );'
+					'create table teachers(id varchar(500) primary key ,name varchar(50) not null ,email varchar(50) not null unique  ,password varchar(500)  not null ,institution varchar(100) not null,courses integer, image_upload_id varchar(100)  );'
 				)
 				.then((data) => res.json('Teachers were deleted'))
 				.catch((e) => console.log(e))

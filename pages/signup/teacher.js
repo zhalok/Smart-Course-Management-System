@@ -52,8 +52,29 @@ export default function TeacherSignup() {
 			alert('password did not match');
 			return;
 		}
-		const imageUploadId = await uploadImage();
-		console.log(imageUploadId);
+
+		try {
+			const imageUploadId = await uploadImage();
+			const response = await fetch('http://localhost:3000/api/teachers', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify({
+					name: fullName,
+					password,
+					email,
+					institution,
+					imageUploadId,
+				}),
+			});
+			const data = await response.json();
+			alert(
+				'Your information is collected successfully \n soon you will be asked for an interview \n thanks a lot '
+			);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	return (

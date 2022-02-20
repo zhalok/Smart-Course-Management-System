@@ -7,13 +7,14 @@ const createNewTeacher = (req, res) => {
 	console.log(req.body);
 	const id = Date.now();
 	const { name, email, password, institution, imageUploadId } = req.body;
+	console.log(imageUploadId);
 	if (!emailValidator(email)) {
 		res.status(500).json('Invalid Email');
 		return;
 	}
 	passwordEncrypter(password, (err, encrypted_password) => {
 		if (!err && encrypted_password) {
-			const query_string = `insert into teachers (id, name,email,password,institution,courses) values( '${id}' , '${name}','${email}','${encrypted_password}','${institution}',0);`;
+			const query_string = `insert into teachers (id, name,email,password,institution,courses,image_upload_id) values( '${id}' , '${name}','${email}','${encrypted_password}','${institution}',0,'${imageUploadId}');`;
 			pgClient
 				.query(query_string)
 				.then((data) => {
@@ -23,6 +24,7 @@ const createNewTeacher = (req, res) => {
 						email,
 						encrypted_password,
 						institution,
+						imageUploadId,
 					};
 					res.status(200).json(new_entry);
 				})

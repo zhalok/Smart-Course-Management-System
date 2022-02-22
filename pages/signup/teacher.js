@@ -19,7 +19,7 @@ export default function TeacherSignup() {
 		const formData = new FormData();
 		formData.append('teacherImage', image);
 		const response = await fetch(
-			'http://localhost:3000/api/imageUpload/teacher',
+			'http://localhost:3000/api/images/upload/teacher',
 			{
 				method: 'POST',
 				body: formData,
@@ -77,6 +77,7 @@ export default function TeacherSignup() {
 			setEmail('');
 			setPassword('');
 			setConfirmedPassword('');
+			setInstitution('');
 			setImage(null);
 		} catch (e) {
 			console.log(e);

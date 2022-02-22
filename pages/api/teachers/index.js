@@ -1,8 +1,6 @@
 const { pgClient } = require('../../../database/pg_client');
 const { emailValidator } = require('../../../utils/validators');
 const { passwordEncrypter } = require('../../../utils/encryptors');
-const dir = 'uploads';
-const fs = require('fs');
 
 const createNewTeacher = (req, res) => {
 	console.log(req.body);
@@ -26,6 +24,7 @@ const createNewTeacher = (req, res) => {
 						institution,
 						imageUploadId,
 					};
+
 					res.json(newEntry);
 				})
 				.catch((e) => {

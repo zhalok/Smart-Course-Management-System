@@ -8,7 +8,7 @@ export default function Login() {
 	const router = useRouter();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	// console.log(emailValidator);
+
 	const auth = () => {
 		if (!emailValidator(email)) {
 			alert('Please give a correct email');

@@ -42,7 +42,7 @@ export default function Sidebar() {
 		<div className='sidebar'>
 			<div
 				className='sidebar-elements'
-				style={{ marginTop: '100px' }}
+				style={{ marginTop: '50px' }}
 				onClick={() => {
 					router.push('/');
 				}}

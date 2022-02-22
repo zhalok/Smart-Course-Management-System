@@ -62,9 +62,8 @@ a {
 }
 
 .dashboard {
-	border: 1px solid black;
 	border-radius: 10px;
-
+	border: 1px solid black;
 	padding: 20px;
 }
 
@@ -98,6 +97,7 @@ a {
 .sidebar {
 	border: 1px solid black;
 	border-radius: 10px;
+	height: 500px;
 }
 
 .sidebar-elements {

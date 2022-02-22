@@ -1,47 +1,51 @@
 import { useRouter } from 'next/router';
+import Sidebar from '../../components/Layout/Sidebar';
 
 export default function Signup() {
 	const router = useRouter();
 	return (
-		<div
-			style={{
-				width: '40%',
-				marginLeft: 'auto',
-				marginRight: 'auto',
-				marginTop: '100px',
-				padding: '20px',
-				border: '2px solid black',
-			}}
-		>
+		<div className='layout-grid'>
+			<Sidebar />
 			<div
 				style={{
-					width: '70%',
-					marginLeft: 'auto',
-					marginRight: 'auto',
-					textAlign: 'center',
-					border: '1px solid black',
-				}}
-				onClick={() => {
-					router.push('/signup/teacher');
-				}}
-			>
-				<button className='button2'>Signup as a teacher</button>
-			</div>
-			<div
-				style={{
-					width: '70%',
+					width: '80%',
+					height: '100%',
 					marginLeft: 'auto',
 					marginRight: 'auto',
 
-					textAlign: 'center',
-					border: '1px solid black',
-					marginTop: '20px',
-				}}
-				onClick={() => {
-					router.push('/signup/student');
+					padding: '20px',
+					border: '2px solid black',
 				}}
 			>
-				<button className='button2'>Signup as a student</button>
+				<div
+					style={{
+						marginLeft: 'auto',
+						marginRight: 'auto',
+						textAlign: 'center',
+						border: '1px solid black',
+						marginTop: '100px',
+					}}
+					onClick={() => {
+						router.push('/signup/teacher');
+					}}
+				>
+					<button className='button2'>Signup as a teacher</button>
+				</div>
+				<div
+					style={{
+						marginLeft: 'auto',
+						marginRight: 'auto',
+
+						textAlign: 'center',
+						border: '1px solid black',
+						marginTop: '20px',
+					}}
+					onClick={() => {
+						router.push('/signup/student');
+					}}
+				>
+					<button className='button2'>Signup as a student</button>
+				</div>
 			</div>
 		</div>
 	);

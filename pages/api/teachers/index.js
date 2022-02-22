@@ -1,7 +1,8 @@
 const { pgClient } = require('../../../database/pg_client');
 const { emailValidator } = require('../../../utils/validators');
 const { passwordEncrypter } = require('../../../utils/encryptors');
-const nextConnect = require('next-connect');
+const dir = 'uploads';
+const fs = require('fs');
 
 const createNewTeacher = (req, res) => {
 	console.log(req.body);
@@ -18,15 +19,14 @@ const createNewTeacher = (req, res) => {
 			pgClient
 				.query(query_string)
 				.then((data) => {
-					const new_entry = {
+					const newEntry = {
 						id,
 						name,
 						email,
-						encrypted_password,
 						institution,
 						imageUploadId,
 					};
-					res.status(200).json(new_entry);
+					res.json(newEntry);
 				})
 				.catch((e) => {
 					console.log(e);

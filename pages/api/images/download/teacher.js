@@ -1,11 +1,11 @@
-const { pgClient } = require('../../../../database/pg_client');
-export default function handler(req, res) {
+const nextConnect = require('next-connect');
+
+const app = nextConnect();
+app.get((req, res) => {
 	const { id } = req.query;
-	// console.log(pgClient);
-	pgClient
-		.query(`select * from teachers where id='${id}'`)
-		.then((data) => {
-			res.json(data.rows);
-		})
-		.catch((e) => console.log(e));
-}
+	res.sendFile(
+		'/home/zhalok/Desktop/Codes/js/NEXT_project/Smart-Course-Management-System/uploads/1645561642081.jpg'
+	);
+});
+
+export default app;

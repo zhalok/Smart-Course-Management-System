@@ -32,7 +32,7 @@ export default function Teachers({ data }) {
 export async function getServerSideProps(context) {
 	const response = await fetch('http://localhost:3000/api/teachers?id=all');
 	const data = await response.json();
-	console.log(data);
+	// console.log(data);
 	return {
 		props: {
 			data,
